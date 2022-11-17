@@ -1,11 +1,12 @@
 package tn.esprit.khairislimanitest.services;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprit.khairislimanitest.entities.Fournisseur;
 import tn.esprit.khairislimanitest.entities.Produit;
 import tn.esprit.khairislimanitest.entities.Rayon;
 import tn.esprit.khairislimanitest.entities.Stock;
+import tn.esprit.khairislimanitest.repositories.FournisseurRepository;
 import tn.esprit.khairislimanitest.repositories.ProduitRepository;
 import tn.esprit.khairislimanitest.repositories.RayonRepository;
 import tn.esprit.khairislimanitest.repositories.StockRepository;
@@ -19,6 +20,7 @@ public class IProduitServiceIMP implements IProduitService{
     ProduitRepository produitRepository;
     StockRepository stockRepository;
     RayonRepository rayonRepository;
+    FournisseurRepository fournisseurRepository;
 
     @Override
     public List<Produit> retrieveAllProduits() {
@@ -49,8 +51,18 @@ public class IProduitServiceIMP implements IProduitService{
     public void assignProduitToStock(Long idProduit, Long idStock) {
         Produit p = produitRepository.findById(Math.toIntExact(idProduit)).orElse(null);
         Stock s = stockRepository.findById(Math.toIntExact(idStock)).orElse(null);
-        if(p!=null && s!=null){
+        if(p != null && s != null){
             p.setStock(s);
+            produitRepository.save(p);
+        }
+    }
+
+    @Override
+    public void assignFournisseurToProduit(Long fournisseurId, Long produitId) {
+        Fournisseur f = fournisseurRepository.findById(Math.toIntExact(fournisseurId)).orElse(null);
+        Produit p = produitRepository.findById(Math.toIntExact(produitId)).orElse(null);
+        if(f != null && p != null){
+            p.getFournisseurs().add(f);
             produitRepository.save(p);
         }
     }

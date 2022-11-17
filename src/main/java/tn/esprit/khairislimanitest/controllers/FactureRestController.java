@@ -2,7 +2,6 @@ package tn.esprit.khairislimanitest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.khairislimanitest.entities.Client;
 import tn.esprit.khairislimanitest.entities.Facture;
 import tn.esprit.khairislimanitest.services.IFactureService;
 
@@ -31,6 +30,14 @@ public class FactureRestController {
     {
         return iFactureService.retrieveFacture(idFacture);
     }
+
+    @GetMapping("/{idClient}")
+    public List<Facture> getFacturesByClient(@PathVariable(value = "idClient") long idClient)
+    {
+        return iFactureService.getFacturesByClient(idClient);
+    }
+
+
 
 
 

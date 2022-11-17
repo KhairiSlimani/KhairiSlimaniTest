@@ -2,9 +2,7 @@ package tn.esprit.khairislimanitest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.khairislimanitest.entities.Client;
 import tn.esprit.khairislimanitest.entities.Produit;
-import tn.esprit.khairislimanitest.services.IFactureService;
 import tn.esprit.khairislimanitest.services.IProduitService;
 
 import java.util.List;
@@ -37,5 +35,11 @@ public class ProduitRestController {
     public void assignProduitToStock(@PathVariable(value = "idProduit") Long idProduit, @PathVariable(value = "idStock") Long idStock)
     {
         iProduitService.assignProduitToStock(idProduit,idStock);
+    }
+
+    @PostMapping("/{fournisseurId}/{produitId}")
+    public void assignFournisseurToProduit(@PathVariable(value = "fournisseurId") Long fournisseurId, @PathVariable(value = "produitId") Long produitId)
+    {
+        iProduitService.assignFournisseurToProduit(fournisseurId, produitId);
     }
 }
