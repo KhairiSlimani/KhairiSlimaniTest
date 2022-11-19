@@ -1,7 +1,6 @@
 package tn.esprit.khairislimanitest.services;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.khairislimanitest.entities.Client;
 import tn.esprit.khairislimanitest.entities.Facture;
@@ -24,21 +23,29 @@ public class IFactureServiceIMP implements IFactureService{
 
     @Override
     public void cancelFacture(Long id) {
-        factureRepository.deleteById(Math.toIntExact(id));
+        factureRepository.deleteById(id);
     }
 
     @Override
     public Facture retrieveFacture(Long id) {
-        return factureRepository.findById(Math.toIntExact(id)).orElse(null);
+        return factureRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Facture> getFacturesByClient(Long idClient) {
-        Client c = clientRepository.findById(Math.toIntExact(idClient)).orElse(null);
+        Client c = clientRepository.findById(idClient).orElse(null);
         if(c != null){
             return c.getFactures();
         }
         return null;
     }
+    @Override
+    public Facture addFacture(Facture f, Long idClient) {
+        Client client = clientRepository.findById(idClient).orElse(null);
+        if(client != null)
+            f.setClient(client);
+        return null;
+    }
+
 
 }

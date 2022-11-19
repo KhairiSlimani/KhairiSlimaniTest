@@ -30,7 +30,7 @@ public class IStockServiceIMP implements IStockService {
 
     @Override
     public Stock retrieveStock(Long id) {
-        return stockRepository.findById(Math.toIntExact(id)).orElse(null);
+        return stockRepository.findById(id).orElse(null);
     }
 
 

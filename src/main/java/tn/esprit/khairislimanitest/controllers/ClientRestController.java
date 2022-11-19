@@ -2,9 +2,11 @@ package tn.esprit.khairislimanitest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.khairislimanitest.entities.CategorieClient;
 import tn.esprit.khairislimanitest.entities.Client;
 import tn.esprit.khairislimanitest.services.IClientService;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -41,6 +43,11 @@ public class ClientRestController {
     public void deleteClient(@PathVariable(value = "idClient") long idClient)
     {
         iClientService.deleteClient(idClient);
+    }
+    @GetMapping ("/{categorieClient}/{startDate}/{endDate}")
+    public float getChiffreAffaireParCategorieClient(@PathVariable(value = "categorieClient") CategorieClient categorieClient,@PathVariable(value = "startDate") Date startDate,@PathVariable(value = "endDate") Date endDate)
+    {
+        return iClientService.getChiffreAffaireParCategorieClient(categorieClient,startDate,endDate);
     }
 
 }

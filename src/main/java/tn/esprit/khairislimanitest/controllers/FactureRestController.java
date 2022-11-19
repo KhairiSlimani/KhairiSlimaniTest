@@ -37,7 +37,11 @@ public class FactureRestController {
         return iFactureService.getFacturesByClient(idClient);
     }
 
-
+    @PostMapping("/{idClient}")
+    public Facture addFacture(@RequestBody Facture f, @PathVariable(value = "idClient") Long idClient)
+    {
+        return iFactureService.addFacture(f,idClient);
+    }
 
 
 

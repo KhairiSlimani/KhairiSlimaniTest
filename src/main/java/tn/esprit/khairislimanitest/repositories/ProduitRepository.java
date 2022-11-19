@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import tn.esprit.khairislimanitest.entities.Produit;
 
 
-public interface ProduitRepository extends JpaRepository<Produit, Integer> {
+public interface ProduitRepository extends JpaRepository<Produit, Long> {
 }

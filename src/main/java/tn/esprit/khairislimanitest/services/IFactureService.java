@@ -8,5 +8,7 @@ public interface IFactureService {
     List<Facture> retrieveAllFactures();
     void cancelFacture(Long id);
     Facture retrieveFacture(Long id);
-    public List<Facture> getFacturesByClient(Long idClient);
+    List<Facture> getFacturesByClient(Long idClient);
+    Facture addFacture(Facture f, Long idClient);
+
 }
