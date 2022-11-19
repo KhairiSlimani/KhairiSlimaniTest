@@ -9,7 +9,6 @@ import tn.esprit.khairislimanitest.repositories.ClientRepository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class IClientServiceIMP implements IClientService {
@@ -44,20 +43,21 @@ public class IClientServiceIMP implements IClientService {
 
     @Override
     public float getChiffreAffaireParCategorieClient(CategorieClient categorieClient, Date startDate, Date endDate) {
-        List<Client> list = clientRepository.getClientsByCategorieClient(categorieClient);
-        float s = 0;
-        for(Client c : list)
-            s += sommeFactures(c,startDate, endDate);
-        return s;
+
+        List<Client> clients = clientRepository.getClientsByCategorieClient(categorieClient);
+
+        float summ=0;
+        for(Client c: clients){
+            for(Facture facture: c.getFactures()){
+                if(facture.getDateFacture().after(startDate) &&facture.getDateFacture().before(endDate)){
+                    if(facture.isActive()) {
+                        summ+=facture.getMontantFacture();
+                    }
+                }
+            }
+        }
+        return summ;
     }
 
-    private float sommeFactures(Client client, Date startDate, Date endDate)
-    {
-        return (float) client.getFactures()
-                .stream()
-                .filter(facture -> !facture.getActive() && facture.getDateFacture().after(startDate)  && facture.getDateFacture().before(endDate))
-                .collect(Collectors.summarizingDouble(Facture::getMontantFacture))
-                .getSum();
-    }
 
 }

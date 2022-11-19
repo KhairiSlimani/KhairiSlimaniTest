@@ -2,15 +2,13 @@ package tn.esprit.khairislimanitest.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.khairislimanitest.entities.Fournisseur;
-import tn.esprit.khairislimanitest.entities.Produit;
-import tn.esprit.khairislimanitest.entities.Rayon;
-import tn.esprit.khairislimanitest.entities.Stock;
+import tn.esprit.khairislimanitest.entities.*;
 import tn.esprit.khairislimanitest.repositories.FournisseurRepository;
 import tn.esprit.khairislimanitest.repositories.ProduitRepository;
 import tn.esprit.khairislimanitest.repositories.RayonRepository;
 import tn.esprit.khairislimanitest.repositories.StockRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -66,6 +64,24 @@ public class IProduitServiceIMP implements IProduitService{
             produitRepository.save(p);
         }
     }
+    @Override
+    public float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate) {
+        Produit p = produitRepository.findById(idProduit).orElse(null);
+        float r = 0;
+        if(p!=null){
+            List<DetailFacture> detailFactures = p.getDetailFacture();
+            for(DetailFacture df: detailFactures){
+                if(df.getFacture().getDateFacture().after(startDate)&&df.getFacture().getDateFacture().before(endDate))
+                {
+                    if(df.getFacture().isActive()) {
+                        r+=df.getPrixTotal()*df.getQte();
+                    }
+                }
+            }
+        }
+        return r;
+    }
+
 
 
 

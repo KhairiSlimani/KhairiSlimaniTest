@@ -24,7 +24,7 @@ public class Facture {
     @Temporal(TemporalType.DATE)
     private Date dateFacture;
 
-    private Boolean active;
+    private boolean active;
 
     @OneToMany (mappedBy = "facture")
     private List<DetailFacture> detailFactures;

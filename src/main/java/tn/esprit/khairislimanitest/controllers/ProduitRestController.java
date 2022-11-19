@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.khairislimanitest.entities.Produit;
 import tn.esprit.khairislimanitest.services.IProduitService;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -41,5 +42,10 @@ public class ProduitRestController {
     public void assignFournisseurToProduit(@PathVariable(value = "fournisseurId") Long fournisseurId, @PathVariable(value = "produitId") Long produitId)
     {
         iProduitService.assignFournisseurToProduit(fournisseurId, produitId);
+    }
+    @GetMapping("/{idProduit}/{startDate}/{endDate}")
+    public float getRevenuBrutProduit(@PathVariable(value = "idProduit") Long idProduit,@PathVariable(value = "startDate") Date startDate,@PathVariable(value = "endDate") Date endDate)
+    {
+        return iProduitService.getRevenuBrutProduit(idProduit,startDate,endDate);
     }
 }
