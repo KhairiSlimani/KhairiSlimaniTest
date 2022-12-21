@@ -14,27 +14,32 @@ public class StockRestController {
     IStockService iStockService;
 
     @GetMapping()
-    public List<Stock> retrieveAllClients()
+    public List<Stock> retrieveAllStocks()
     {
         return iStockService.retrieveAllStocks();
     }
 
     @PostMapping()
-    public Stock addClient (@RequestBody Stock s)
+    public Stock addStock(@RequestBody Stock s)
     {
         return  iStockService.addStock(s);
     }
 
     @PutMapping()
-    public Stock updateClient(@RequestBody Stock s)
+    public Stock updateStock(@RequestBody Stock s)
     {
         return  iStockService.updateStock(s);
     }
 
     @GetMapping("/{idStock}")
-    public Stock retrieveClient(@PathVariable(value = "idStock") long idStock)
+    public Stock retrieveStock(@PathVariable(value = "idStock") long idStock)
     {
         return iStockService.retrieveStock(idStock);
+    }
+    @PostMapping("/{idProduit}/{idStock}")
+    public void assignProduitToStock(@PathVariable(value = "idProduit") Long idProduit, @PathVariable(value = "idStock") Long idStock)
+    {
+        iStockService.assignProduitToStock(idProduit,idStock);
     }
 
 

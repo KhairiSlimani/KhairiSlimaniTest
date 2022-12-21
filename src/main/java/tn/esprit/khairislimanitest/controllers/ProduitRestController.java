@@ -32,12 +32,6 @@ public class ProduitRestController {
         return iProduitService.retrieveProduit(idProduit);
     }
 
-    @PostMapping("/{idProduit}/{idStock}")
-    public void assignProduitToStock(@PathVariable(value = "idProduit") Long idProduit, @PathVariable(value = "idStock") Long idStock)
-    {
-        iProduitService.assignProduitToStock(idProduit,idStock);
-    }
-
     @PostMapping("/{fournisseurId}/{produitId}")
     public void assignFournisseurToProduit(@PathVariable(value = "fournisseurId") Long fournisseurId, @PathVariable(value = "produitId") Long produitId)
     {

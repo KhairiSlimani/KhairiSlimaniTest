@@ -23,7 +23,8 @@ public class IFactureServiceIMP implements IFactureService{
 
     @Override
     public void cancelFacture(Long id) {
-        factureRepository.deleteById(id);
+        Facture facture= factureRepository.findById(id).orElse(null);
+        facture.setActive(false);
     }
 
     @Override

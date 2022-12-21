@@ -27,7 +27,7 @@ public class DetailProduit {
     @Enumerated(EnumType.STRING)
     private CategorieProduit categorieProduit;
 
-    @OneToOne (mappedBy = "detailProduit")
+    @OneToOne
     private Produit produit;
 
 

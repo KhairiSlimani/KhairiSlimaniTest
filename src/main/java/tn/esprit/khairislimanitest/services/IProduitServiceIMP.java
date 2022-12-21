@@ -31,28 +31,20 @@ public class IProduitServiceIMP implements IProduitService{
         Rayon rayon = rayonRepository.findById(idRayon).orElse(null);
         Stock stock = stockRepository.findById(idStock).orElse(null);
 
-        p.setRayon(rayon);
-        p.setStock(stock);
+        if(rayon != null && stock != null)
+        {
+            p.setRayon(rayon);
+            p.setStock(stock);
+        }
 
         produitRepository.save(p);
 
         return p;
-
     }
 
     @Override
     public Produit retrieveProduit(Long id) {
         return produitRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public void assignProduitToStock(Long idProduit, Long idStock) {
-        Produit p = produitRepository.findById(idProduit).orElse(null);
-        Stock s = stockRepository.findById(idStock).orElse(null);
-        if(p != null && s != null){
-            p.setStock(s);
-            produitRepository.save(p);
-        }
     }
 
     @Override

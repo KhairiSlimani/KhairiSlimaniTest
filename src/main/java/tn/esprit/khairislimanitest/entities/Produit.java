@@ -1,6 +1,5 @@
 package tn.esprit.khairislimanitest.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +30,7 @@ public class Produit {
     @ManyToMany
     private List<Fournisseur> fournisseurs;
 
-    @OneToOne
+    @OneToOne(mappedBy = "produit", cascade = CascadeType.PERSIST)
     private DetailProduit detailProduit;
 
     @OneToMany (mappedBy = "produit")
